@@ -7,13 +7,13 @@ import javax.persistence.*;
 
 @Entity
 @Getter @Setter
-public class Delievery {
+public class Delivery {
 
     @Id @GeneratedValue
-    @Column(name = "delievery_id")
+    @Column(name = "delivery_id")
     private String id;
 
-    @OneToOne(mappedBy = "delievery", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY)
     private Order order;
 
     @Embedded

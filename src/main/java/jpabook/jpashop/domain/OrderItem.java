@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "order_item")
 @Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED) //protected OrderItem (){} 와 같은 역할
 public class OrderItem {

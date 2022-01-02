@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.sql.Array;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +28,9 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL) //order 저장 후 orderItem 자동으로 persist
     private List<OrderItem> orderItems = new ArrayList<>();
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "delievery_id")
-    private Delievery delievery;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "delivery_id")
+    private Delivery delivery;
 
     private LocalDateTime orderDate; //주문시간
 
@@ -52,16 +51,16 @@ public class Order {
         orderItem.setOrder(this);
     }
 
-    public void setDelivery(Delievery delievery) {
-        this.delievery = delievery;
-        delievery.setOrder(this);
+    public void setDelivery(Delivery delivery) {
+        this.delivery = delivery;
+        delivery.setOrder(this);
     }
 
     //==생성 메서드==// -> 주문 생성은 다 여기서만.
-    public static Order createOrder(Member member, Delievery delievery, OrderItem... orderItems) {
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
         Order order = new Order();
         order.setMember(member);
-        order.setDelivery(delievery);
+        order.setDelivery(delivery);
         for (OrderItem orderItem : orderItems) {
             order.addOrderItem(orderItem);
         }
@@ -75,8 +74,8 @@ public class Order {
      * 주문 취소
      */
     public void cancel() {
-        if (delievery.getStatus() == DelieveryStatus.COMP) {
-            throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능합니다.")
+        if (delivery.getStatus() == DelieveryStatus.COMP) {
+            throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능합니다.");
         }
 
         this.setStatus(OrderStatus.CANCEl);
