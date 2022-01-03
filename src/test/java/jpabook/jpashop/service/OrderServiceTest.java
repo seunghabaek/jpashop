@@ -43,6 +43,8 @@ public class OrderServiceTest {
         Order getOrder = orderRepository.findOne(orderId);
 
         assertEquals("상품 주문시 상태는 ORDER", OrderStatus.ORDER, getOrder.getStatus());
+        assertEquals("주문한 상품의 갯수가 정확해야 한다", 1, getOrder.getOrderItems().size());
+        assertEquals("주문한만큼 갯수가 줄어야 한다", 8, item.getStockQuantity());
     }
 
 
