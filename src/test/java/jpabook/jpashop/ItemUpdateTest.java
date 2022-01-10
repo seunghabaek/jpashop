@@ -1,0 +1,19 @@
+package jpabook.jpashop;
+
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class ItemUpdateTest {
+
+    @Test
+    public void () throws Exception {
+        //given
+
+        //when
+
+        //then
+    }
+}
